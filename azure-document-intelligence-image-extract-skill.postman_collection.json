@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "ec60a608-b601-4126-9034-3d41f42e57af",
+		"name": "azure-document-intelligence-image-extract-skill",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19335589"
+	},
+	"item": [
+		{
+			"name": "01 - Create a datasource",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{env_search_api_key}}",
+						"uuid": "1d0ad0b3-d618-403c-9797-0f7ab939fd4b"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "10da2646-31f9-48de-8f8d-252f3b9e6e19"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"description\" : \"Demo files to demonstrate ai search capabilities.\",  \r\n    \"type\" : \"adlsgen2\",\r\n    \"credentials\" : { \r\n    \t\"connectionString\": \"{{env_storage_connection_string}}\"\r\n    },  \r\n\t\"container\" : { \r\n\t\t\"name\" : \"{{env_storage_container}}\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "https://{{search_service}}.search.windows.net/datasources/{{index_name}}-datasource?api-version=2024-03-01-Preview",
+					"protocol": "https",
+					"host": [
+						"{{search_service}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"datasources",
+						"{{index_name}}-datasource"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2024-03-01-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02 - Create an Index",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{env_search_api_key}}",
+						"uuid": "88a0d52f-4b01-4ab3-bc7d-ec0ae5a6fda2"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "a0e9e16a-1eb2-4923-b7d9-ca8243feb725"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fields\": [\r\n    {\r\n      \"name\": \"content\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"ja.lucene\",\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_content_type\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_size\",\r\n      \"type\": \"Edm.Int64\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_last_modified\",\r\n      \"type\": \"Edm.DateTimeOffset\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_content_md5\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_name\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_path\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": true,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_file_extension\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_content_type\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_sas_token\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"paragraphs\",\r\n      \"type\": \"Collection(Edm.ComplexType)\",\r\n      \"fields\": [\r\n        {\r\n          \"name\": \"id\",\r\n          \"type\": \"Edm.String\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        },\r\n        {\r\n          \"name\": \"content\",\r\n          \"type\": \"Edm.String\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        },\r\n        {\r\n          \"name\": \"role\",\r\n          \"type\": \"Edm.String\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"sections\",\r\n      \"type\": \"Collection(Edm.String)\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"figures\",\r\n      \"type\": \"Collection(Edm.ComplexType)\",\r\n      \"fields\": [\r\n        {\r\n          \"name\": \"pageNumber\",\r\n          \"type\": \"Edm.Int32\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        },\r\n        {\r\n          \"name\": \"caption\",\r\n          \"type\": \"Edm.String\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        },\r\n        {\r\n          \"name\": \"image\",\r\n          \"type\": \"Edm.String\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        },\r\n        {\r\n          \"name\": \"polygon\",\r\n          \"type\": \"Collection(Edm.Double)\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        },\r\n        {\r\n          \"name\": \"elements\",\r\n          \"type\": \"Collection(Edm.String)\",\r\n          \"searchable\": false,\r\n          \"filterable\": false,\r\n          \"retrievable\": true,\r\n          \"stored\": true,\r\n          \"sortable\": false,\r\n          \"facetable\": false,\r\n          \"key\": false,\r\n          \"indexAnalyzer\": null,\r\n          \"searchAnalyzer\": null,\r\n          \"analyzer\": null,\r\n          \"normalizer\": null,\r\n          \"dimensions\": null,\r\n          \"vectorSearchProfile\": null,\r\n          \"synonymMaps\": []\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"name\": \"markdown\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": true,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": \"ja.lucene\",\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    },\r\n    {\r\n      \"name\": \"metadata_storage_path_raw\",\r\n      \"type\": \"Edm.String\",\r\n      \"searchable\": false,\r\n      \"filterable\": false,\r\n      \"retrievable\": true,\r\n      \"stored\": true,\r\n      \"sortable\": false,\r\n      \"facetable\": false,\r\n      \"key\": false,\r\n      \"indexAnalyzer\": null,\r\n      \"searchAnalyzer\": null,\r\n      \"analyzer\": null,\r\n      \"normalizer\": null,\r\n      \"dimensions\": null,\r\n      \"vectorSearchProfile\": null,\r\n      \"synonymMaps\": []\r\n    }\r\n  ],\r\n  \"scoringProfiles\": [],\r\n  \"corsOptions\": {\r\n    \"allowedOrigins\": [\r\n      \"*\"\r\n    ],\r\n    \"maxAgeInSeconds\": 300\r\n  },\r\n  \"suggesters\": [],\r\n  \"analyzers\": [],\r\n  \"normalizers\": [],\r\n  \"tokenizers\": [],\r\n  \"tokenFilters\": [],\r\n  \"charFilters\": [],\r\n  \"encryptionKey\": null,\r\n  \"similarity\": {\r\n    \"@odata.type\": \"#Microsoft.Azure.Search.BM25Similarity\",\r\n    \"k1\": null,\r\n    \"b\": null\r\n  },\r\n  \"semantic\": null,\r\n  \"vectorSearch\": null\r\n}"
+				},
+				"url": {
+					"raw": "https://{{search_service}}.search.windows.net/indexes/{{index_name}}?api-version=2024-03-01-Preview",
+					"protocol": "https",
+					"host": [
+						"{{search_service}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexes",
+						"{{index_name}}"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2024-03-01-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 - Create a Skillset",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{env_search_api_key}}",
+						"uuid": "c1a32523-7ee0-4fd9-9f9d-4d676a18d7a2"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "e721a95a-132d-42e0-a71f-30c408aef5cb"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"\",\r\n  \"skills\": [\r\n    {\r\n      \"@odata.type\": \"#Microsoft.Skills.Custom.WebApiSkill\",\r\n      \"name\": \"ImageExtractSkill\",\r\n      \"description\": \"Extracts images and fields from a form using a pre-trained layout model\",\r\n      \"context\": \"/document\",\r\n      \"uri\": \"[AzureFunctionEndpointUrl]/api/analyze?code=[AzureFunctionDefaultHostKey]\",\r\n      \"httpMethod\": \"POST\",\r\n      \"timeout\": \"PT3M50S\",\r\n      \"batchSize\": 1000,\r\n      \"degreeOfParallelism\": null,\r\n      \"authResourceId\": null,\r\n      \"inputs\": [\r\n        {\r\n          \"name\": \"formUrl\",\r\n          \"source\": \"/document/metadata_storage_path_raw\"\r\n        },\r\n        {\r\n          \"name\": \"formSasToken\",\r\n          \"source\": \"/document/metadata_storage_sas_token\"\r\n        },\r\n        {\r\n          \"name\": \"model\",\r\n          \"source\": \"= 'prebuilt-layout'\"\r\n        }\r\n      ],\r\n      \"outputs\": [\r\n        {\r\n          \"name\": \"paragraphs\",\r\n          \"targetName\": \"paragraphs\"\r\n        },\r\n        {\r\n          \"name\": \"sections\",\r\n          \"targetName\": \"sections\"\r\n        },\r\n        {\r\n          \"name\": \"content\",\r\n          \"targetName\": \"markdown\"\r\n        },\r\n        {\r\n          \"name\": \"figures\",\r\n          \"targetName\": \"figures\"\r\n        }\r\n      ],\r\n      \"httpHeaders\": {},\r\n      \"authIdentity\": null\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{search_service}}.search.windows.net/skillsets/{{index_name}}-skillset?api-version=2024-03-01-Preview",
+					"protocol": "https",
+					"host": [
+						"{{search_service}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"skillsets",
+						"{{index_name}}-skillset"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2024-03-01-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04 - Create an Indexer",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{env_search_api_key}}",
+						"uuid": "043a2aa6-2c9b-4824-a797-f480e22decf4"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"uuid": "581c1d04-7a05-4a5f-a72f-92039de78443"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dataSourceName\" : \"{{index_name}}-datasource\",\r\n  \"targetIndexName\" : \"{{index_name}}\",\r\n  \"skillsetName\" : \"{{index_name}}-skillset\",\r\n  \"fieldMappings\": [\r\n    {\r\n      \"sourceFieldName\": \"metadata_storage_path\",\r\n      \"targetFieldName\": \"metadata_storage_path\",\r\n      \"mappingFunction\": {\r\n        \"name\": \"base64Encode\",\r\n        \"parameters\": null\r\n      }\r\n    },\r\n    {\r\n      \"sourceFieldName\": \"metadata_storage_path\",\r\n      \"targetFieldName\": \"metadata_storage_path_raw\",\r\n      \"mappingFunction\": null\r\n    }\r\n  ],\r\n  \"outputFieldMappings\": [\r\n    {\r\n      \"sourceFieldName\": \"/document/paragraphs\",\r\n      \"targetFieldName\": \"paragraphs\"\r\n    },\r\n    {\r\n      \"sourceFieldName\": \"/document/sections\",\r\n      \"targetFieldName\": \"sections\"\r\n    },\r\n    {\r\n      \"sourceFieldName\": \"/document/markdown\",\r\n      \"targetFieldName\": \"markdown\"\r\n    },\r\n    {\r\n      \"sourceFieldName\": \"/document/figures\",\r\n      \"targetFieldName\": \"figures\"\r\n    }\r\n  ],\r\n  \"parameters\":\r\n  {\r\n\t\"batchSize\": null,\r\n  \t\"maxFailedItems\":-1,\r\n  \t\"maxFailedItemsPerBatch\":-1,\r\n  \t\"configuration\": \r\n\t{\r\n    \t\"dataToExtract\": \"contentAndMetadata\",\r\n        \"parsingMode\": \"default\"\r\n\t}\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{search_service}}.search.windows.net/indexers/{{index_name}}-indexer?api-version=2024-03-01-Preview",
+					"protocol": "https",
+					"host": [
+						"{{search_service}}",
+						"search",
+						"windows",
+						"net"
+					],
+					"path": [
+						"indexers",
+						"{{index_name}}-indexer"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "2024-03-01-Preview"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05 - Skill Execution Test",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"values\": [\r\n        {\r\n            \"recordId\": \"record1\",\r\n            \"data\": { \r\n                \"model\": \"prebuilt-layout\",\r\n                \"formUrl\": \"https://documentintelligence.ai.azure.com/documents/samples/layout/layout-pageobject.pdf\",\r\n                \"formSasToken\":  \"\"\r\n            }\r\n        }\r\n    ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://imageextractskill1.azurewebsites.net/api/analyze?code=xxx",
+					"protocol": "https",
+					"host": [
+						"imageextractskill1",
+						"azurewebsites",
+						"net"
+					],
+					"path": [
+						"api",
+						"analyze"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "xxx"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
